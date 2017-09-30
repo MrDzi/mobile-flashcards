@@ -1,10 +1,28 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { connect } from 'react-redux';
+import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { getDecks } from '../actions';
 
-export default class DecksList extends Component {
+class DecksList extends Component {
+    componentWillMount() {
+        getDecks();
+    }
     render() {
         return (
-            <Text>Decks List</Text>
+            <FlatList
+                data={this.props.decks}
+                renderItem={({item}) =>
+                    <Text>{item.title}</Text>
+                }
+            />
         )
     }
 }
+
+function mapStateToProps({ decks }) {
+    return {
+        decks
+    }
+}
+
+export default connect(mapStateToProps)(DecksList);

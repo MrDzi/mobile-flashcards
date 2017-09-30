@@ -1,5 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, View, Text, StatusBar } from 'react-native';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import reducer from './reducers';
+import thunk from 'redux-thunk';
 import { TabNavigator } from 'react-navigation';
 import { Constants } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
@@ -29,13 +33,15 @@ const Tabs = TabNavigator({
     }
 });
 
-export default class App extends React.Component {
+export default class App extends Component {
     render() {
         return (
-            <View style={{flex: 1}}>
-                <MFStatusBar backgroundColor="purple" barStyle="light-content" />
-                <Tabs style={styles.container} />
-            </View>
+            <Provider store={createStore(reducer, applyMiddleware(thunk))}>
+                <View style={{flex: 1}}>
+                    <MFStatusBar backgroundColor="purple" barStyle="light-content" />
+                    <Tabs style={styles.container} />
+                </View>
+            </Provider>
         );
     }
 }
