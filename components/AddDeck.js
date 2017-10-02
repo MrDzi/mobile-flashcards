@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import { addNewDeck } from '../actions'
 
 class AddDeck extends Component {
     state = {
@@ -16,6 +17,9 @@ class AddDeck extends Component {
             title: this.state.title,
             questions: []
         }));
+        this.setState({
+            title: ''
+        });
     }
     render() {
         return (

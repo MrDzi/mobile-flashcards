@@ -4,17 +4,18 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import reducer from './reducers';
 import thunk from 'redux-thunk';
-import { TabNavigator } from 'react-navigation';
+import { TabNavigator, StackNavigator } from 'react-navigation';
 import { Constants } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 import DecksList from './components/DecksList';
 import AddDeck from './components/AddDeck';
+import DeckDetails from './components/DeckDetails';
 
 const MFStatusBar = ({backgroundColor, ...props}) => (
     <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
         <StatusBar translucent backgroundColor={backgroundColor} {...props} />
     </View>
-)
+);
 
 const Tabs = TabNavigator({
     DecksList: {
@@ -31,6 +32,22 @@ const Tabs = TabNavigator({
             tabBarIcon: ({ tintColor }) => <Ionicons name='ios-add-circle-outline' size={26} color={tintColor} />
         }
     }
+}, {
+    navigationOptions: {
+        header: null
+    }
+});
+
+const MainNavigation = StackNavigator({
+    Home: { screen: Tabs },
+    DeckDetails: { screen: DeckDetails,
+        navigationOptions: {
+            headerTintColor: 'white',
+            headerStyle: {
+                backgroundColor: 'purple'
+            }
+        }
+    }
 });
 
 export default class App extends Component {
@@ -39,7 +56,7 @@ export default class App extends Component {
             <Provider store={createStore(reducer, applyMiddleware(thunk))}>
                 <View style={{flex: 1}}>
                     <MFStatusBar backgroundColor="purple" barStyle="light-content" />
-                    <Tabs style={styles.container} />
+                    <MainNavigation />
                 </View>
             </Provider>
         );
@@ -52,5 +69,5 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
-    },
+    }
 });

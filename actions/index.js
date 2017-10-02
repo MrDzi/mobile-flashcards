@@ -15,7 +15,7 @@ const receiveDecks = decks => ({
 
 export const addNewDeck = newDeck => dispatch => {
     return submitDeck(newDeck)
-        .then(() => dispatch(addNewDeck(newDeck)));
+        .then(() => dispatch(receiveNewDeck(newDeck)));
 };
 
 const receiveNewDeck = newDeck => ({

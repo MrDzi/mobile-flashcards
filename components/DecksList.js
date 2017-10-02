@@ -1,19 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { navigate } from 'react-navigation';
 import { getDecks } from '../actions';
 
 class DecksList extends Component {
     componentWillMount() {
-        getDecks();
+        this.props.dispatch(getDecks());
     }
     render() {
+        const { navigate } = this.props.navigation;
         return (
             <FlatList
-                data={this.props.decks}
-                renderItem={({item}) =>
-                    <Text>{item.title}</Text>
-                }
+                data={Object.keys(this.props.decks)}
+                renderItem={({item}) => (
+                    <Text
+                        style={{padding: 30, textAlign: 'center'}}
+                        onPress={() => navigate('DeckDetails', { title: this.props.decks[item].title })}>
+                        {this.props.decks[item].title}
+                    </Text>
+                )}
             />
         )
     }
