@@ -10,6 +10,8 @@ import { Ionicons } from '@expo/vector-icons';
 import DecksList from './components/DecksList';
 import AddDeck from './components/AddDeck';
 import DeckDetails from './components/DeckDetails';
+import AddCard from './components/AddCard';
+import Quiz from './components/Quiz';
 
 const MFStatusBar = ({backgroundColor, ...props}) => (
     <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
@@ -41,6 +43,22 @@ const Tabs = TabNavigator({
 const MainNavigation = StackNavigator({
     Home: { screen: Tabs },
     DeckDetails: { screen: DeckDetails,
+        navigationOptions: {
+            headerTintColor: 'white',
+            headerStyle: {
+                backgroundColor: 'purple'
+            }
+        }
+    },
+    AddCard: { screen: AddCard,
+        navigationOptions: {
+            headerTintColor: 'white',
+            headerStyle: {
+                backgroundColor: 'purple'
+            }
+        }
+    },
+    Quiz: { screen: Quiz,
         navigationOptions: {
             headerTintColor: 'white',
             headerStyle: {

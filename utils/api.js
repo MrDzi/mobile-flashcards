@@ -4,12 +4,12 @@ import { DECK_STORAGE_KEY } from './helpers'
 export function fetchDecks() {
     return AsyncStorage.getItem(DECK_STORAGE_KEY)
         .then(results => {
-            console.log(JSON.parse(results))
             return JSON.parse(results);
         });
 }
 
 export function submitDeck(deck) {
+    debugger;
     return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify({
         [deck.title]: deck
     }))
