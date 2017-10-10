@@ -8,12 +8,12 @@ class DeckDetails extends Component {
         title: `${navigation.state.params.title}`
     });
     render() {
-        console.log(this.props);
-        const { title } = this.props.navigation.state.params;
+        const { title, cardsCount } = this.props.navigation.state.params;
         const { navigate } = this.props.navigation;
         return (
             <View>
                 <Text>{title}</Text>
+                <Text>{cardsCount} card(s)</Text>
                 <Text
                     onPress={() => navigate('AddCard', { title })}
                     style={{padding: 30, textAlign: 'center'}}>

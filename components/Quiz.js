@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, StatusBar } from 'react-native';
 import { NavigationActions } from 'react-navigation';
+import FlipCard from 'react-native-flip-card'
 import { connect } from 'react-redux';
 
 class Quiz extends Component {
@@ -12,7 +13,8 @@ class Quiz extends Component {
         currentStep: 1,
         correct: 0,
         quizFinished: false,
-        view: 'question'
+        view: 'question',
+        flip: false
     }
     handleAnswer(answer) {
         if (this.state.currentStep === this.state.questions.length) {
@@ -36,56 +38,55 @@ class Quiz extends Component {
     }
     toggleView() {
         this.setState({
-            view: this.state.view === 'question' ? 'answer' : 'question'
+            flip: !this.state.flip
         });
     }
     render() {
         const { title } = this.props.navigation.state.params;
         const { questions, currentStep, quizFinished, correct, view } = this.state;
         return (
-            <View>
-                { view === 'question' ?
-                    <View>
-                        {currentStep > 1 && <Text>Result: {correct/questions.length*100}%</Text>}
-                        {!quizFinished ?
-                            <View>
-                                <Text>{currentStep} / {questions.length}</Text>
-                                <Text>{questions[currentStep-1].question}</Text>
-                                <Text
-                                    style={{padding: 30, textAlign: 'center'}}
-                                    onPress={() => this.toggleView()}>
-                                    Answer
-                                </Text>
-                                <Text
-                                    style={{padding: 30, textAlign: 'center'}}
-                                    onPress={() => this.handleAnswer(true)}>
-                                    Correct
-                                </Text>
-                                <Text
-                                    style={{padding: 30, textAlign: 'center'}}
-                                    onPress={() => this.handleAnswer()}>
-                                    Incorrect
-                                </Text>
-                            </View>
-                            :
+            <FlipCard flip={this.state.flip} clickable={false} perspective={1000}>
+                <View>
+                    {!quizFinished ?
+                        <View>
+                            <Text>{currentStep} / {questions.length}</Text>
+                            <Text>{questions[currentStep-1].question}</Text>
+                            <Text
+                                style={{padding: 30, textAlign: 'center'}}
+                                onPress={() => this.toggleView()}>
+                                Answer
+                            </Text>
+                            <Text
+                                style={{padding: 30, textAlign: 'center'}}
+                                onPress={() => this.handleAnswer(true)}>
+                                Correct
+                            </Text>
+                            <Text
+                                style={{padding: 30, textAlign: 'center'}}
+                                onPress={() => this.handleAnswer()}>
+                                Incorrect
+                            </Text>
+                        </View>
+                        :
+                        <View>
+                            <Text>Result: {correct/questions.length*100}%</Text>
                             <Text
                                 style={{padding: 30, textAlign: 'center'}}
                                 onPress={() => this.finishQuiz()}>
                                 Go back
                             </Text>
-                        }
-                    </View>
-                    :
-                    <View>
-                        <Text>{questions[currentStep-1].answer}</Text>
-                        <Text
-                            style={{padding: 30, textAlign: 'center'}}
-                            onPress={() => this.toggleView()}>
-                            Question
-                        </Text>
-                    </View>
-                }
-            </View>
+                        </View>
+                    }
+                </View>
+                <View>
+                    <Text>{questions[currentStep-1].answer}</Text>
+                    <Text
+                        style={{padding: 30, textAlign: 'center'}}
+                        onPress={() => this.toggleView()}>
+                        Question
+                    </Text>
+                </View>
+            </FlipCard>
         )
     }
 }

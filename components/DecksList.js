@@ -10,15 +10,22 @@ class DecksList extends Component {
     }
     render() {
         const { navigate } = this.props.navigation;
+        const { decks } = this.props;
         return (
             <FlatList
-                data={Object.keys(this.props.decks)}
+                data={Object.keys(decks)}
                 renderItem={({item}) => (
-                    <Text
-                        style={{padding: 30, textAlign: 'center'}}
-                        onPress={() => navigate('DeckDetails', { title: this.props.decks[item].title })}>
-                        {this.props.decks[item].title}
-                    </Text>
+                    <View>
+                        <Text
+                            style={{padding: 30, textAlign: 'center'}}
+                            onPress={() => navigate('DeckDetails', {
+                                title: decks[item].title,
+                                cardsCount: decks[item].questions.length
+                            })}>
+                            {decks[item].title}
+                        </Text>
+                        <Text>{decks[item].questions.length} card(s)</Text>
+                    </View>
                 )}
             />
         )
