@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, StatusBar } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import FlipCard from 'react-native-flip-card'
 import { connect } from 'react-redux';
+import { clearLocalNotification, setLocalNotification } from '../utils/helpers';
 
 class Quiz extends Component {
     static navigationOptions = ({ navigation }) => ({
@@ -15,6 +16,10 @@ class Quiz extends Component {
         quizFinished: false,
         view: 'question',
         flip: false
+    }
+    componentDidMount() {
+        clearLocalNotification()
+            .then(setLocalNotification);
     }
     handleAnswer(answer) {
         if (this.state.currentStep === this.state.questions.length) {
@@ -69,7 +74,7 @@ class Quiz extends Component {
                         </View>
                         :
                         <View>
-                            <Text>Result: {correct/questions.length*100}%</Text>
+                            <Text>Result: {(correct/questions.length*100).toFixed(2)}%</Text>
                             <Text
                                 style={{padding: 30, textAlign: 'center'}}
                                 onPress={() => this.finishQuiz()}>

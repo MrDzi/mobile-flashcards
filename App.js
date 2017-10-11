@@ -7,6 +7,7 @@ import thunk from 'redux-thunk';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { Constants } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
+import { setLocalNotification } from './utils/helpers';
 import DecksList from './components/DecksList';
 import AddDeck from './components/AddDeck';
 import DeckDetails from './components/DeckDetails';
@@ -69,6 +70,9 @@ const MainNavigation = StackNavigator({
 });
 
 export default class App extends Component {
+    componentDidMount() {
+        setLocalNotification();
+    }
     render() {
         return (
             <Provider store={createStore(reducer, applyMiddleware(thunk))}>
