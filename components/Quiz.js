@@ -4,6 +4,7 @@ import { NavigationActions } from 'react-navigation';
 import FlipCard from 'react-native-flip-card'
 import { connect } from 'react-redux';
 import { clearLocalNotification, setLocalNotification } from '../utils/helpers';
+import sharedStyles from './utils/sharedStyles';
 
 class Quiz extends Component {
     static navigationOptions = ({ navigation }) => ({
@@ -54,27 +55,27 @@ class Quiz extends Component {
                 <View>
                     {!quizFinished ?
                         <View>
-                            <Text>{currentStep} / {questions.length}</Text>
-                            <Text>{questions[currentStep-1].question}</Text>
+                            <Text style={styles.cardStep}>{currentStep} / {questions.length}</Text>
+                            <Text style={styles.cardQuestion}>{questions[currentStep-1].question}</Text>
                             <Text
                                 style={{padding: 30, textAlign: 'center'}}
                                 onPress={() => this.toggleView()}>
                                 Answer
                             </Text>
-                            <Text
-                                style={{padding: 30, textAlign: 'center'}}
+                            <TouchableOpacity
+                                style={[sharedStyles.btn, sharedStyles.primaryBtn]}
                                 onPress={() => this.handleAnswer(true)}>
                                 Correct
-                            </Text>
-                            <Text
-                                style={{padding: 30, textAlign: 'center'}}
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={[sharedStyles.btn, sharedStyles.borderBtn]}
                                 onPress={() => this.handleAnswer()}>
                                 Incorrect
-                            </Text>
+                            </TouchableOpacity>
                         </View>
                         :
                         <View>
-                            <Text>Result: {(correct/questions.length*100).toFixed(2)}%</Text>
+                            <Text style={styles.cardResult>Result: {(correct/questions.length*100).toFixed(2)}%</Text>
                             <Text
                                 style={{padding: 30, textAlign: 'center'}}
                                 onPress={() => this.finishQuiz()}>
@@ -84,7 +85,7 @@ class Quiz extends Component {
                     }
                 </View>
                 <View>
-                    <Text>{questions[currentStep-1].answer}</Text>
+                    <Text style={styles.cardQuestion}>{questions[currentStep-1].answer}</Text>
                     <Text
                         style={{padding: 30, textAlign: 'center'}}
                         onPress={() => this.toggleView()}>
@@ -95,6 +96,18 @@ class Quiz extends Component {
         )
     }
 }
+
+const styles = StyleSheet({
+    cardStep: {
+
+    },
+    cardQuestion: {
+
+    },
+    cardResult: {
+
+    }
+});
 
 function mapStateToProps({ decks }) {
     return {

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
-import { addNewDeck } from '../actions'
+import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { addNewDeck } from '../actions';
+import sharedStyles from './utils/sharedStyles';
 
 class AddDeck extends Component {
     state = {
@@ -27,10 +28,14 @@ class AddDeck extends Component {
                 <Text>What is the title of your new deck?</Text>
                 <TextInput
                     onChangeText={(text) => this.onInputChange(text)}
-                    style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+                    style={sharedStyles.input}
                     value={this.state.title}
                 />
-                <Button title="Add New Deck" onPress={this.saveNewDeck} />
+                <TouchableOpacity
+                    title="Add New Deck"
+                    onPress={this.saveNewDeck}
+                    style={[sharedStyles.btn, sharedStyles.primaryBtn]}>
+                </TouchableOpacity>
             </View>
         )
     }

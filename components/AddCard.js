@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { addNewDeck } from '../actions'
+import sharedStyles from './utils/sharedStyles';
 
 class AddCard extends Component {
     state = {
@@ -38,17 +39,20 @@ class AddCard extends Component {
                 <Text>Question</Text>
                 <TextInput
                     onChangeText={(text) => this.onQuestionInputChange(text)}
-                    style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+                    style={sharedStyles.input}
                     value={this.state.question}
                 />
                 <Text>Answer</Text>
                 <TextInput
                     onChangeText={(text) => this.onAnswerInputChange(text)}
-                    style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+                    style={sharedStyles.input}
                     value={this.state.answer}
                 />
-                <Button title="Add New Card" onPress={this.saveNewCard} />
-            </View>
+                <TouchableOpacity
+                        title="Add New Card"
+                        onPress={this.saveNewCard}
+                        style={[sharedStyles.btn, sharedStyles.primaryBtn]}>
+                </TouchableOpacity>
         )
     }
 }

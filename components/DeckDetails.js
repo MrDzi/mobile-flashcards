@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, StatusBar } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { navigate } from 'react-navigation';
 import { connect } from 'react-redux';
+import sharedStyles from './utils/sharedStyles';
 
 class DeckDetails extends Component {
     static navigationOptions = ({ navigation }) => ({
@@ -12,21 +13,40 @@ class DeckDetails extends Component {
         const { navigate } = this.props.navigation;
         return (
             <View>
-                <Text>{title}</Text>
-                <Text>{cardsCount} card(s)</Text>
-                <Text
+                <Text styles={sharedStyles.deckItemTitle}>{title}</Text>
+                <Text styles={[sharedStyles.deckItemCardCount, {marginBottom: 40}]}>{cardsCount} card(s)</Text>
+                <TouchableOpacity
                     onPress={() => navigate('AddCard', { title })}
-                    style={{padding: 30, textAlign: 'center'}}>
-                    Add Card
-                </Text>
-                <Text
+                    style={[sharedStyles.btn, sharedStyles.borderBtn]}>
+                    <Text>Add Card</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
                     onPress={() => navigate('Quiz', { title })}
-                    style={{padding: 30, textAlign: 'center'}}>
+                    style={[sharedStyles.btn, sharedStyles.primaryBtn]}>
                     Start Quiz
-                </Text>
+                </TouchableOpacity>
             </View>
         )
     }
 }
+
+const styles = StyleSheet.create({
+    deckItem: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'white',
+        padding: 20,
+        borderRadius: 5
+    },
+    deckItemTitle: {
+        fontSize: 20,
+        fontWeight: 500,
+        marginBottom: 20
+    },
+    deckItemCardCount: {
+        color: gray
+    }
+});
 
 export default connect()(DeckDetails);
