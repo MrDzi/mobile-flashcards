@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { addNewDeck } from '../actions';
-import sharedStyles from './utils/sharedStyles';
+import sharedStyles from '../utils/sharedStyles';
 
 class AddDeck extends Component {
     state = {
@@ -32,9 +32,9 @@ class AddDeck extends Component {
                     value={this.state.title}
                 />
                 <TouchableOpacity
-                    title="Add New Deck"
                     onPress={this.saveNewDeck}
                     style={[sharedStyles.btn, sharedStyles.primaryBtn]}>
+                    <Text>Add new deck</Text>
                 </TouchableOpacity>
             </View>
         )

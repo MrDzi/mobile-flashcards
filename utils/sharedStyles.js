@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { black, lightGray, primary } from './colors';
+import { black, lightGray, primary, gray } from './colors';
 
-export default const sharedStyles = StyleSheet.create({
+const sharedStyles = StyleSheet.create({
     input: {
         height: 40,
         backgroundColor: 'white',
@@ -9,24 +9,26 @@ export default const sharedStyles = StyleSheet.create({
         borderWidth: 1
     },
     deckItemTitle: {
-        fontSize: 20,
-        fontWeight: 500,
+        // fontSize: 20,
+        fontWeight: "500",
         marginBottom: 20
     },
     deckItemCardCount: {
-        color: gray
+        // color: gray
     },
     btn: {
-        padding: [10, 30],
+        padding: 10,
         borderRadius: 5
     },
     primaryBtn: {
-        color: 'white',
+        // color: 'white',
         backgroundColor: primary
     },
     borderBtn: {
-        color: primary,
+        // color: primary,
         borderWidth: 1,
         borderColor: primary
     }
 });
+
+export default sharedStyles;

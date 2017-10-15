@@ -13,7 +13,7 @@ import AddDeck from './components/AddDeck';
 import DeckDetails from './components/DeckDetails';
 import AddCard from './components/AddCard';
 import Quiz from './components/Quiz';
-import { primary, black } from './utils/colors';
+import { primary, black, lightGray } from './utils/colors';
 
 const MFStatusBar = ({backgroundColor, ...props}) => (
     <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
@@ -83,12 +83,6 @@ export default class App extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        fontSize: 16,
-        color: black,
-        backgroundColor: lightGray,
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 20
+        flex: 1
     }
 });

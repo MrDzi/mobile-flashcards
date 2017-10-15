@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, StatusBar } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import FlipCard from 'react-native-flip-card'
 import { connect } from 'react-redux';
 import { clearLocalNotification, setLocalNotification } from '../utils/helpers';
-import sharedStyles from './utils/sharedStyles';
+import sharedStyles from '../utils/sharedStyles';
 
 class Quiz extends Component {
     static navigationOptions = ({ navigation }) => ({
@@ -65,17 +65,17 @@ class Quiz extends Component {
                             <TouchableOpacity
                                 style={[sharedStyles.btn, sharedStyles.primaryBtn]}
                                 onPress={() => this.handleAnswer(true)}>
-                                Correct
+                                <Text>Correct</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
                                 style={[sharedStyles.btn, sharedStyles.borderBtn]}
                                 onPress={() => this.handleAnswer()}>
-                                Incorrect
+                                <Text>Incorrect</Text>
                             </TouchableOpacity>
                         </View>
                         :
                         <View>
-                            <Text style={styles.cardResult>Result: {(correct/questions.length*100).toFixed(2)}%</Text>
+                            <Text style={styles.cardResult}>Result: {(correct/questions.length*100).toFixed(2)}%</Text>
                             <Text
                                 style={{padding: 30, textAlign: 'center'}}
                                 onPress={() => this.finishQuiz()}>
@@ -97,7 +97,7 @@ class Quiz extends Component {
     }
 }
 
-const styles = StyleSheet({
+const styles = StyleSheet.create({
     cardStep: {
 
     },
