@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 import { addNewDeck } from '../actions';
 import sharedStyles from '../utils/sharedStyles';
 
@@ -32,26 +33,30 @@ class AddCard extends Component {
             question: '',
             answer: ''
         });
+        Keyboard.dismiss();
+        this.props.navigation.dispatch(NavigationActions.back());
     }
     render() {
         return (
-            <View>
-                <Text>Question</Text>
+            <View style={sharedStyles.container}>
+                <Text style={sharedStyles.label}>Question</Text>
                 <TextInput
                     onChangeText={(text) => this.onQuestionInputChange(text)}
+                    onBlur={() => Keyboard.dismiss()}
                     style={sharedStyles.input}
                     value={this.state.question}
                 />
-                <Text>Answer</Text>
+                <Text style={sharedStyles.label}>Answer</Text>
                 <TextInput
                     onChangeText={(text) => this.onAnswerInputChange(text)}
+                    onBlur={() => Keyboard.dismiss()}
                     style={sharedStyles.input}
                     value={this.state.answer}
                 />
                 <TouchableOpacity
-                        onPress={this.saveNewCard}
-                        style={[sharedStyles.btn, sharedStyles.primaryBtn]}>
-                        <Text>Add new card</Text>
+                    onPress={this.saveNewCard}
+                    style={[sharedStyles.btn, sharedStyles.primaryBtn]}>
+                    <Text style={sharedStyles.btnText}>Add new card</Text>
                 </TouchableOpacity>
             </View>
         )

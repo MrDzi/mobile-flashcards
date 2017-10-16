@@ -13,18 +13,21 @@ class DeckDetails extends Component {
         const { title, cardsCount } = this.props.navigation.state.params;
         const { navigate } = this.props.navigation;
         return (
-            <View>
-                <Text style={sharedStyles.deckItemTitle}>{title}</Text>
-                <Text style={[sharedStyles.deckItemCardCount, {marginBottom: 40}]}>{cardsCount} card(s)</Text>
+            <View style={[sharedStyles.container, {justifyContent: 'flex-start'}]}>
+                <View style={styles.deckDetailsInfo}>
+                    <Text style={[sharedStyles.deckItemTitle, {fontSize: 32}]}>{title}</Text>
+                    <Text style={[sharedStyles.deckItemCardCount, {marginBottom: 40}]}>{cardsCount} card(s)</Text>
+                </View>
                 <TouchableOpacity
                     onPress={() => navigate('AddCard', { title })}
                     style={[sharedStyles.btn, sharedStyles.borderBtn]}>
-                    <Text>Add Card</Text>
+                    <Text style={sharedStyles.borderBtnColor}>Add Card</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
+                    disabled={cardsCount === 0}
                     onPress={() => navigate('Quiz', { title })}
-                    style={[sharedStyles.btn, sharedStyles.primaryBtn]}>
-                    <Text>Start Quiz</Text>
+                    style={[sharedStyles.btn, sharedStyles.primaryBtn, {opacity: cardsCount > 0 ? 1 : 0.5}]}>
+                    <Text style={sharedStyles.btnText}>Start Quiz</Text>
                 </TouchableOpacity>
             </View>
         )
@@ -32,13 +35,10 @@ class DeckDetails extends Component {
 }
 
 const styles = StyleSheet.create({
-    deckItemTitle: {
-        // fontSize: 20,
-        fontWeight: "500",
-        marginBottom: 20
-    },
-    deckItemCardCount: {
-        // color: gray
+    deckDetailsInfo: {
+        display: 'flex',
+        alignItems: 'center',
+        marginTop: 50
     }
 });
 

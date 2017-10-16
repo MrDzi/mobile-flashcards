@@ -5,6 +5,7 @@ import FlipCard from 'react-native-flip-card'
 import { connect } from 'react-redux';
 import { clearLocalNotification, setLocalNotification } from '../utils/helpers';
 import sharedStyles from '../utils/sharedStyles';
+import { primary } from '../utils/colors';
 
 class Quiz extends Component {
     static navigationOptions = ({ navigation }) => ({
@@ -40,7 +41,7 @@ class Quiz extends Component {
             currentStep: 1,
             correct: 0
         });
-        this.props.navigation.dispatch(NavigationActions.back())
+        this.props.navigation.dispatch(NavigationActions.back());
     }
     toggleView() {
         this.setState({
@@ -51,33 +52,39 @@ class Quiz extends Component {
         const { title } = this.props.navigation.state.params;
         const { questions, currentStep, quizFinished, correct, view } = this.state;
         return (
-            <FlipCard flip={this.state.flip} clickable={false} perspective={1000}>
+            <FlipCard
+                style={[sharedStyles.container, {backgroundColor: 'white', borderWidth: 0}]}
+                flip={this.state.flip}
+                flipHorizontal={true}
+                clickable={false}
+                perspective={1000}>
                 <View>
                     {!quizFinished ?
                         <View>
-                            <Text style={styles.cardStep}>{currentStep} / {questions.length}</Text>
-                            <Text style={styles.cardQuestion}>{questions[currentStep-1].question}</Text>
+                            <Text style={styles.step}>Step: {currentStep} / {questions.length}</Text>
+                            <Text style={styles.question}>{questions[currentStep-1].question}</Text>
                             <Text
-                                style={{padding: 30, textAlign: 'center'}}
+                                style={styles.link}
                                 onPress={() => this.toggleView()}>
                                 Answer
                             </Text>
                             <TouchableOpacity
                                 style={[sharedStyles.btn, sharedStyles.primaryBtn]}
                                 onPress={() => this.handleAnswer(true)}>
-                                <Text>Correct</Text>
+                                <Text style={sharedStyles.btnText}>Correct</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
                                 style={[sharedStyles.btn, sharedStyles.borderBtn]}
                                 onPress={() => this.handleAnswer()}>
-                                <Text>Incorrect</Text>
+                                <Text style={sharedStyles.borderBtnColor}>Incorrect</Text>
                             </TouchableOpacity>
                         </View>
                         :
-                        <View>
-                            <Text style={styles.cardResult}>Result: {(correct/questions.length*100).toFixed(2)}%</Text>
+                        <View style={styles.resultWrap}>
+                            <Text style={{textAlign: 'center'}}>Result:</Text>
+                            <Text style={styles.result}>{(correct/questions.length*100).toFixed(2)}%</Text>
                             <Text
-                                style={{padding: 30, textAlign: 'center'}}
+                                style={styles.link}
                                 onPress={() => this.finishQuiz()}>
                                 Go back
                             </Text>
@@ -85,9 +92,9 @@ class Quiz extends Component {
                     }
                 </View>
                 <View>
-                    <Text style={styles.cardQuestion}>{questions[currentStep-1].answer}</Text>
+                    <Text style={styles.question}>{questions[currentStep-1].answer}</Text>
                     <Text
-                        style={{padding: 30, textAlign: 'center'}}
+                        style={styles.link}
                         onPress={() => this.toggleView()}>
                         Question
                     </Text>
@@ -98,14 +105,31 @@ class Quiz extends Component {
 }
 
 const styles = StyleSheet.create({
-    cardStep: {
-
+    link: {
+        color: primary,
+        padding: 20,
+        textAlign: 'center'
     },
-    cardQuestion: {
-
+    step: {
+        textAlign: 'right'
     },
-    cardResult: {
-
+    question: {
+        fontSize: 24,
+        fontWeight: '500',
+        textAlign: 'center',
+        marginTop: 50,
+        marginBottom: 35
+    },
+    resultWrap: {
+        display: 'flex',
+        justifyContent: 'center'
+    },
+    result: {
+        fontSize: 60,
+        fontWeight: '500',
+        color: primary,
+        textAlign: 'center',
+        padding: 20
     }
 });
 

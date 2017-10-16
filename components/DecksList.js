@@ -14,7 +14,7 @@ class DecksList extends Component {
         const { navigate } = this.props.navigation;
         const { decks } = this.props;
         return (
-            <View style={{backgroundColor: lightGray, padding: 10}}>
+            <View style={sharedStyles.container}>
                 <FlatList
                     data={Object.keys(decks)}
                     renderItem={({item}) => (
@@ -28,7 +28,7 @@ class DecksList extends Component {
                                 style={sharedStyles.deckItemTitle}>
                                 {decks[item].title}
                             </Text>
-                            <Text                       style={sharedStyles.deckItemCardCount}>{decks[item].questions.length} card(s)</Text>
+                            <Text               style={sharedStyles.deckItemCardCount}>{decks[item].questions.length} card(s)</Text>
                         </TouchableOpacity>
                     )}
                 />
@@ -43,9 +43,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: 'white',
-        padding: 10,
+        padding: 15,
         marginBottom: 5,
-        borderRadius: 5
+        borderRadius: 2
     }
 });
 

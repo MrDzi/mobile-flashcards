@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard } from 'react-native';
 import { addNewDeck } from '../actions';
 import sharedStyles from '../utils/sharedStyles';
 
@@ -21,20 +21,23 @@ class AddDeck extends Component {
         this.setState({
             title: ''
         });
+        Keyboard.dismiss();
+        this.props.navigation.navigate('DecksList');
     }
     render() {
         return (
-            <View>
-                <Text>What is the title of your new deck?</Text>
+            <View style={sharedStyles.container}>
+                <Text style={sharedStyles.label}>What is the title of your new deck?</Text>
                 <TextInput
                     onChangeText={(text) => this.onInputChange(text)}
+                    onBlur={() => Keyboard.dismiss()}
                     style={sharedStyles.input}
                     value={this.state.title}
                 />
                 <TouchableOpacity
                     onPress={this.saveNewDeck}
                     style={[sharedStyles.btn, sharedStyles.primaryBtn]}>
-                    <Text>Add new deck</Text>
+                    <Text style={sharedStyles.btnText}>Add new deck</Text>
                 </TouchableOpacity>
             </View>
         )
