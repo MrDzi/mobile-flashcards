@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { RECEIVE_DECKS, RECEIVE_DECK } from '../actions';
 
-function decks(state = [], action) {
+function decks(state = {}, action) {
     const { decks, newDeck } = action;
     switch (action.type) {
         case RECEIVE_DECKS:
@@ -12,7 +12,7 @@ function decks(state = [], action) {
         case RECEIVE_DECK:
             return {
                 ...state,
-                newDeck
+                [newDeck.title]: newDeck
             }
         default:
             return state;

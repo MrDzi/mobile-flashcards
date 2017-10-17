@@ -1,4 +1,4 @@
-import { submitDeck, fetchDecks, submitCard } from '../utils/api';
+import { submitDeck, fetchDecks, submitCard, deleteDecks } from '../utils/api';
 
 export const RECEIVE_DECK = 'RECEIVE_DECK';
 export const RECEIVE_DECKS = 'RECEIVE_DECKS';
@@ -7,6 +7,10 @@ export const RECEIVE_CARD = 'RECEIVE_CARD';
 export const getDecks = () => dispatch => {
     return fetchDecks()
         .then(decks => dispatch(receiveDecks(decks)));
+}
+
+export const clearDecks = () => dispatch => {
+    return deleteDecks();
 }
 
 const receiveDecks = decks => ({

@@ -6,14 +6,23 @@ import sharedStyles from '../utils/sharedStyles';
 
 class AddDeck extends Component {
     state = {
-        title: ''
+        title: '',
+        error: false
     }
     onInputChange(text) {
         this.setState({
-            title: text
+            title: text,
+            error: false
         })
     }
     saveNewDeck = () => {
+        const existingDeck = Object.keys(this.props.decks).filter((deckTitle) => deckTitle === this.state.title);
+        if (existingDeck.length) {
+            this.setState({
+                error: true
+            });
+            return;
+        }
         this.props.dispatch(addNewDeck({
             title: this.state.title,
             questions: []
@@ -34,9 +43,11 @@ class AddDeck extends Component {
                     style={sharedStyles.input}
                     value={this.state.title}
                 />
+                {this.state.error && <Text style={{marginBottom: 10}}>That name already exist.</Text>}
                 <TouchableOpacity
+                    disabled={!this.state.title.length}
                     onPress={this.saveNewDeck}
-                    style={[sharedStyles.btn, sharedStyles.primaryBtn]}>
+                    style={[sharedStyles.btn, sharedStyles.primaryBtn, {opacity: !this.state.title ? 0.5 : 1}]}>
                     <Text style={sharedStyles.btnText}>Add new deck</Text>
                 </TouchableOpacity>
             </View>
@@ -44,4 +55,10 @@ class AddDeck extends Component {
     }
 }
 
-export default connect()(AddDeck);
+function mapStateToProps({ decks }) {
+    return {
+        decks
+    }
+}
+
+export default connect(mapStateToProps)(AddDeck);

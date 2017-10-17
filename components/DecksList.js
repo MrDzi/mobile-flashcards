@@ -17,12 +17,12 @@ class DecksList extends Component {
             <View style={sharedStyles.container}>
                 <FlatList
                     data={Object.keys(decks)}
+                    keyExtractor={(item, index) => item.title}
                     renderItem={({item}) => (
                         <TouchableOpacity
                             style={styles.deckItem}
                             onPress={() => navigate('DeckDetails', {
-                                    title: decks[item].title,
-                                    cardsCount: decks[item].questions.length
+                                title: decks[item].title
                             })}>
                             <Text
                                 style={sharedStyles.deckItemTitle}>

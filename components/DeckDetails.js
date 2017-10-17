@@ -10,23 +10,24 @@ class DeckDetails extends Component {
         title: `${navigation.state.params.title}`
     });
     render() {
-        const { title, cardsCount } = this.props.navigation.state.params;
+        const { title } = this.props.navigation.state.params;
+        const deck = this.props.decks[title];
         const { navigate } = this.props.navigation;
         return (
             <View style={[sharedStyles.container, {justifyContent: 'flex-start'}]}>
                 <View style={styles.deckDetailsInfo}>
-                    <Text style={[sharedStyles.deckItemTitle, {fontSize: 32}]}>{title}</Text>
-                    <Text style={[sharedStyles.deckItemCardCount, {marginBottom: 40}]}>{cardsCount} card(s)</Text>
+                    <Text style={[sharedStyles.deckItemTitle, {fontSize: 32}]}>{deck.title}</Text>
+                    <Text style={[sharedStyles.deckItemCardCount, {marginBottom: 40}]}>{deck.questions.length} card(s)</Text>
                 </View>
                 <TouchableOpacity
-                    onPress={() => navigate('AddCard', { title })}
+                    onPress={() => navigate('AddCard', { title: deck.title })}
                     style={[sharedStyles.btn, sharedStyles.borderBtn]}>
                     <Text style={sharedStyles.borderBtnColor}>Add Card</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    disabled={cardsCount === 0}
-                    onPress={() => navigate('Quiz', { title })}
-                    style={[sharedStyles.btn, sharedStyles.primaryBtn, {opacity: cardsCount > 0 ? 1 : 0.5}]}>
+                    disabled={deck.questions.length === 0}
+                    onPress={() => navigate('Quiz', { title: deck.title })}
+                    style={[sharedStyles.btn, sharedStyles.primaryBtn, {opacity: deck.questions.length > 0 ? 1 : 0.5}]}>
                     <Text style={sharedStyles.btnText}>Start Quiz</Text>
                 </TouchableOpacity>
             </View>
@@ -42,4 +43,10 @@ const styles = StyleSheet.create({
     }
 });
 
-export default connect()(DeckDetails);
+function mapStateToProps({ decks }) {
+    return {
+        decks
+    }
+}
+
+export default connect(mapStateToProps)(DeckDetails);
