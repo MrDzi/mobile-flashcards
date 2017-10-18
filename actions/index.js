@@ -9,10 +9,6 @@ export const getDecks = () => dispatch => {
         .then(decks => dispatch(receiveDecks(decks)));
 }
 
-export const clearDecks = () => dispatch => {
-    return deleteDecks();
-}
-
 const receiveDecks = decks => ({
     type: RECEIVE_DECKS,
     decks

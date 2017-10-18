@@ -36,14 +36,21 @@ class Quiz extends Component {
             });
         }
     }
-    finishQuiz() {
+    goBack = () => {
         this.setState({
             currentStep: 1,
             correct: 0
         });
         this.props.navigation.dispatch(NavigationActions.back());
     }
-    toggleView() {
+    restartQuiz = () => {
+        this.setState({
+            quizFinished: false,
+            currentStep: 1,
+            correct: 0
+        });
+    }
+    toggleView = () => {
         this.setState({
             flip: !this.state.flip
         });
@@ -56,6 +63,7 @@ class Quiz extends Component {
                 style={[sharedStyles.container, {backgroundColor: 'white', borderWidth: 0}]}
                 flip={this.state.flip}
                 flipHorizontal={true}
+                flipVertical={false}
                 clickable={false}
                 perspective={1000}>
                 <View>
@@ -83,11 +91,17 @@ class Quiz extends Component {
                         <View style={styles.resultWrap}>
                             <Text style={{textAlign: 'center'}}>Result:</Text>
                             <Text style={styles.result}>{(correct/questions.length*100).toFixed(2)}%</Text>
-                            <Text
-                                style={styles.link}
-                                onPress={() => this.finishQuiz()}>
-                                Go back
-                            </Text>
+
+                            <TouchableOpacity
+                                style={[sharedStyles.btn, sharedStyles.borderBtn]}
+                                onPress={this.goBack}>
+                                <Text style={sharedStyles.borderBtnColor}>Go back</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={[sharedStyles.btn, sharedStyles.primaryBtn]}
+                                onPress={this.restartQuiz}>
+                                <Text style={sharedStyles.btnText}>Restart quiz</Text>
+                            </TouchableOpacity>
                         </View>
                     }
                 </View>
@@ -95,7 +109,7 @@ class Quiz extends Component {
                     <Text style={styles.question}>{questions[currentStep-1].answer}</Text>
                     <Text
                         style={styles.link}
-                        onPress={() => this.toggleView()}>
+                        onPress={this.toggleView}>
                         Question
                     </Text>
                 </View>

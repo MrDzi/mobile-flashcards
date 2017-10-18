@@ -14,7 +14,7 @@ const sharedStyles = StyleSheet.create({
         borderColor: black,
         borderWidth: 1,
         borderRadius: 2,
-        padding: 5,
+        padding: 10,
         marginBottom: 10
     },
     label: {

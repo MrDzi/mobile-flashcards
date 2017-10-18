@@ -11,25 +11,29 @@ class DeckDetails extends Component {
     });
     render() {
         const { title } = this.props.navigation.state.params;
-        const deck = this.props.decks[title];
         const { navigate } = this.props.navigation;
+        const deck = this.props.decks[title];
         return (
             <View style={[sharedStyles.container, {justifyContent: 'flex-start'}]}>
-                <View style={styles.deckDetailsInfo}>
-                    <Text style={[sharedStyles.deckItemTitle, {fontSize: 32}]}>{deck.title}</Text>
-                    <Text style={[sharedStyles.deckItemCardCount, {marginBottom: 40}]}>{deck.questions.length} card(s)</Text>
+            {deck &&
+                <View>
+                    <View style={styles.deckDetailsInfo}>
+                        <Text style={[sharedStyles.deckItemTitle, {fontSize: 32}]}>{deck.title}</Text>
+                        <Text style={[sharedStyles.deckItemCardCount, {marginBottom: 40}]}>{deck.questions.length} card(s)</Text>
+                    </View>
+                    <TouchableOpacity
+                        onPress={() => navigate('AddCard', { title: deck.title })}
+                        style={[sharedStyles.btn, sharedStyles.borderBtn]}>
+                        <Text style={sharedStyles.borderBtnColor}>Add Card</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        disabled={deck.questions.length === 0}
+                        onPress={() => navigate('Quiz', { title: deck.title })}
+                        style={[sharedStyles.btn, sharedStyles.primaryBtn, {opacity: deck.questions.length > 0 ? 1 : 0.5}]}>
+                        <Text style={sharedStyles.btnText}>Start Quiz</Text>
+                    </TouchableOpacity>
                 </View>
-                <TouchableOpacity
-                    onPress={() => navigate('AddCard', { title: deck.title })}
-                    style={[sharedStyles.btn, sharedStyles.borderBtn]}>
-                    <Text style={sharedStyles.borderBtnColor}>Add Card</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    disabled={deck.questions.length === 0}
-                    onPress={() => navigate('Quiz', { title: deck.title })}
-                    style={[sharedStyles.btn, sharedStyles.primaryBtn, {opacity: deck.questions.length > 0 ? 1 : 0.5}]}>
-                    <Text style={sharedStyles.btnText}>Start Quiz</Text>
-                </TouchableOpacity>
+            }
             </View>
         )
     }

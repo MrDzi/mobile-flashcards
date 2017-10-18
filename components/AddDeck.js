@@ -27,11 +27,8 @@ class AddDeck extends Component {
             title: this.state.title,
             questions: []
         }));
-        this.setState({
-            title: ''
-        });
         Keyboard.dismiss();
-        this.props.navigation.navigate('DecksList');
+        this.props.navigation.navigate('DeckDetails', {title: this.state.title});
     }
     render() {
         return (
@@ -47,7 +44,7 @@ class AddDeck extends Component {
                 <TouchableOpacity
                     disabled={!this.state.title.length}
                     onPress={this.saveNewDeck}
-                    style={[sharedStyles.btn, sharedStyles.primaryBtn, {opacity: !this.state.title ? 0.5 : 1}]}>
+                    style={[sharedStyles.btn, sharedStyles.primaryBtn]}>
                     <Text style={sharedStyles.btnText}>Add new deck</Text>
                 </TouchableOpacity>
             </View>
