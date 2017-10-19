@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity, Keyboard } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { addNewDeck } from '../actions';
 import sharedStyles from '../utils/sharedStyles';
 
+/*
+    Add card component - responsible for adding a new card to existing deck
+*/
 class AddCard extends Component {
     state = {
         question: '',

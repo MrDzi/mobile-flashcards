@@ -7,6 +7,9 @@ import { clearLocalNotification, setLocalNotification } from '../utils/helpers';
 import sharedStyles from '../utils/sharedStyles';
 import { primary } from '../utils/colors';
 
+/*
+    Quiz component - lists all cards of specific deck and the result of correct answers
+*/
 class Quiz extends Component {
     static navigationOptions = ({ navigation }) => ({
         title: `${navigation.state.params.title}`
@@ -24,6 +27,7 @@ class Quiz extends Component {
             .then(setLocalNotification);
     }
     handleAnswer(answer) {
+        // if last question, show result
         if (this.state.currentStep === this.state.questions.length) {
             this.setState({
                 quizFinished: true,

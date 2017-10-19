@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity, Keyboard } from 'react-native';
 import { addNewDeck } from '../actions';
 import sharedStyles from '../utils/sharedStyles';
 
+/*
+    Add deck component - responsible for creating a new deck
+*/
 class AddDeck extends Component {
     state = {
         title: '',
@@ -17,6 +20,7 @@ class AddDeck extends Component {
     }
     saveNewDeck = () => {
         const existingDeck = Object.keys(this.props.decks).filter((deckTitle) => deckTitle === this.state.title);
+        // if deck with the same title already exists, show error message
         if (existingDeck.length) {
             this.setState({
                 error: true

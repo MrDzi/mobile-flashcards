@@ -6,6 +6,9 @@ import { getDecks } from '../actions';
 import { gray, lightGray } from '../utils/colors';
 import sharedStyles from '../utils/sharedStyles';
 
+/*
+    Decks list component - renders list of all decks
+*/
 class DecksList extends Component {
     componentWillMount() {
         this.props.dispatch(getDecks());
